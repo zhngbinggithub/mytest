@@ -1,0 +1,8 @@
+parent(pom)  pom.xml:
+common:jar  pom.xml  pojo
+dao:jar  sqlMapConfig.xml applicationContext-dao.xml: pom.xml:pojo  数据库信息
+interface:jar  pom.xml: pojo  dao
+service:war web.xml：spring得配置文件信息 监听器   applicationContext-service/tx.xml:  pom.xml:tomcat,.....9001
+manager-web:war web.xml:springmvc得信息  springmvc.xml:.....   pom.xml:.......9101
+shop-web:war web.xml:springmvc得信息  springmvc.xml:.....   pom.xml:.......9102
+

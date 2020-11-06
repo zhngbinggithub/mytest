@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+<!-- 设置此页面不被拦截
+/*.html：根目录下的页面都放行
+
+ -->
+<http pattern="/login.html" security="none"></http>
+<http pattern="/css/**" security="none"></http>
+<http pattern="/img/**" security="none"></http>
+<http pattern="/js/**" security="none"></http>
+<http pattern="/plugins/**" security="none"></http>
+
+
+
+<!-- use-expressions是否 启用SPEL表达式 默认是true -->
+<http use-expressions="false">
+	<intercept-url pattern="/**" access="ROLE_ADMIN"/>
+	<form-login login-page="/login.html"  default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+	<csrf disabled="true"/>
+	
+	 <headers>
+			<frame-options policy="SAMEORIGIN"/>
+	</headers> 
+	
+	<!-- 注销 -->
+	<logout/>
+	
+</http>
+
+<!-- authentication：认证 -->
+<authentication-manager>
+	<authentication-provider>
+		<user-service>
+		<!-- authorities:用户属于哪个角色 -->
+			<user name="admin" password="123456" authorities="ROLE_ADMIN"/>
+			<user name="suwukong" password="dasheng" authorities="ROLE_ADMIN"/>
+		</user-service>
+	</authentication-provider>
+</authentication-manager>
+
+</beans:beans>
